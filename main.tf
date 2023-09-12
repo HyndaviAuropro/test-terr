@@ -47,12 +47,18 @@ resource "aws_security_group" "main" {
   // Define your security group rules here
 }
 
+resource "aws_key_pair" "new_key_pair" {
+  key_name   = var.new_key_pair_name
+  public_key = file("~/.ssh/id_rsa.pub") # Path to your public key file
+}
+
+
 resource "aws_instance" "main" {
   ami           = var.instance_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.main.id
   associate_public_ip_address = true
-  key_name      = var.key_pair_name
+  key_name      = aws_key_pair.new_key_pair.key_name
   vpc_security_group_ids = [aws_security_group.main.id]
   tags = {
     Name = "MyEC2Instance-1"
