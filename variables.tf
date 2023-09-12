@@ -27,9 +27,14 @@ variable "instance_ami" {
 
 }
 
+variable "key_pair_name" {
+  description = "Name of the SSH key pair to associate with the EC2 instance"
+}
+
+
 variable "s3_bucket_name" {
   description = "Name of the S3 bucket."
-  default     = "myyy-terrr-buckettttt001"
+  default     = "myyy-terrr-buckett001"
 }
 
 variable "security_group_ingress" {
