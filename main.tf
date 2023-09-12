@@ -48,26 +48,34 @@ resource "aws_security_group" "main" {
 }
 
 
-resource "aws_key_pair" "new_key_pair" {
-  key_name   = var.new_key_pair_name
-  public_key = var.public_key
-}
-
 
 resource "aws_instance" "main" {
   ami           = var.instance_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.main.id
   associate_public_ip_address = true
-  key_name      = aws_key_pair.new_key_pair.key_name
+  key_name      = "mykeypair.pem"
   vpc_security_group_ids = [aws_security_group.main.id]
   tags = {
     Name = "MyEC2Instance-1"
   }
 
+  provisioner "file" {
+    source      = var.private_key_path
+    destination = "/home/ec2-user/mykeypair.pem" # Change this destination path if needed
+  }
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user" # Update this user if needed
+    private_key = "/home/ec2-user/your-private-key.pem" # Use the path set in the provisioner block
+    host        = self.public_ip # Use the public IP to connect
+  }
 
   // Add any other necessary configuration for your instance
 }
+
+
 
 resource "aws_s3_bucket" "main" {
   bucket = var.s3_bucket_name

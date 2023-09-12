@@ -27,13 +27,13 @@ variable "instance_ami" {
 
 }
 
-variable "new_key_pair_name" {
-  description = "Name for the new SSH key pair"
+variable "mykeypair" {
+  description = "Name of the existing SSH key pair"
 }
 
-variable "public_key_path" {
-  description = "Path to your SSH public key file"
-  default     = "./path/to/your/public/key.pub" # Update with the correct path
+variable "private_key_path" {
+  description = "Path to your SSH private key file"
+  default     = "C:/Users/HYNDAVI/Downloads/mykeypair.pem" # Update with the correct path to your private key file
 }
 
 
