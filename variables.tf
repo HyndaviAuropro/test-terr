@@ -31,6 +31,11 @@ variable "new_key_pair_name" {
   description = "Name for the new SSH key pair"
 }
 
+variable "public_key_path" {
+  description = "Path to your SSH public key file"
+  default     = "./path/to/your/public/key.pub" # Update with the correct path
+}
+
 
 
 variable "s3_bucket_name" {

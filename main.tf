@@ -47,9 +47,10 @@ resource "aws_security_group" "main" {
   // Define your security group rules here
 }
 
+
 resource "aws_key_pair" "new_key_pair" {
   key_name   = var.new_key_pair_name
-  public_key = file("~/.ssh/id_rsa.pub") # Path to your public key file
+  public_key = var.public_key
 }
 
 
